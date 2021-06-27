@@ -1,0 +1,490 @@
+:root {
+  --text-color: #333;
+
+  /* dark green */
+  --main-color-dark: #19270d;
+
+  /* pine green */
+  /* I used Smart Swatch to lighten the main color https://smart-swatch.netlify.app/ */
+  --main-color: #25591f;
+  --main-color-light: #38842f;
+  --main-color-extra-light: #c8ecc4;
+
+  /* hollyhock */
+  --highlight-color: #833471;
+  --highlight-color-dark: #6f1e51;
+  --highlight-color-light: #b53471;
+
+  /* squirrel red */
+  --squirrel-red: #72601b;
+
+  /* tree bark */
+  --pine-bark: #593a0e;
+}
+
+/* useful reset to keep box sizing manageable */
+* {
+  box-sizing: border-box;
+}
+
+/***** main classes  *****/
+
+body {
+  display: flex;
+  flex-direction: column;
+  color: var(--text-color);
+  font-family: "Montserrat", sans-serif;
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Fira Sans", sans-serif;
+  line-height: 1.2;
+  margin: 2em 0 0.5em;
+}
+
+h1 {
+  color: var(--main-color-dark);
+  font-size: 4rem;
+  font-weight: 900;
+}
+
+h2,
+h3 {
+  color: var(--main-color);
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 2.5rem;
+}
+
+h3 {
+  font-size: 2rem;
+}
+
+p {
+  margin: 0 0 1em;
+}
+
+img {
+  display: block;
+  width: 100%;
+}
+
+header {
+  margin-bottom: 6rem;
+}
+
+main {
+  align-self: center;
+  max-width: 80rem;
+  padding: 0 1rem;
+}
+
+article {
+  margin-bottom: 6rem;
+}
+
+.shadow {
+  border: 1px solid blue;
+}
+
+aside {
+  background-color: var(--highlight-color);
+  color: #fff;
+  margin: 6rem 0 8rem;
+  /* font-size is increased in a media query for tablet width */
+  font-size: 1rem;
+}
+
+aside blockquote {
+  padding: 3rem 6rem 0;
+  margin: 0;
+}
+
+aside p {
+  padding-top: 0;
+  text-align: right;
+  padding: 0 6rem 3rem;
+}
+
+/* if you are interested in how I created the triangle footer, 
+   I used Clippy - CSS clip-path maker at https://bennettfeely.com/clippy/ */
+footer {
+  background-color: var(--main-color);
+  clip-path: polygon(0 0, 0% 100%, 100% 100%);
+  color: #fff;
+  font-family: "Fira Sans", sans-serif;
+  font-size: 2em;
+  margin-top: 12rem;
+  padding: 12rem 1rem 2rem;
+}
+
+footer p {
+  width: 50%;
+}
+
+dt {
+  color: var(--highlight-color);
+  font-weight: bold;
+}
+
+/***** general link styles *****/
+a {
+  text-decoration: none;
+}
+
+a:link {
+  color: var(--squirrel-red);
+  font-weight: bold;
+  text-decoration: none;
+}
+
+a:visited {
+  color: var(--main-color);
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* if an <a> does not have an href, don't apply the hover effect */
+a:not([href]):hover {
+  text-decoration: none;
+}
+
+a:active,
+a:focus {
+  background-color: var(--squirrel-red);
+  color: #fff;
+}
+
+blockquote {
+  margin: 0;
+}
+
+/***** utility styles *****/
+.panel {
+  display: flex;
+  flex-direction: column;
+}
+/* cards are mobile-first - this layout is for mobile. Media queries control layout on tablet and fullscreen */
+.cards {
+  display: flex;
+  flex-direction: column;
+  margin: 0 1rem;
+}
+
+.card {
+  margin-bottom: 1rem;
+  /* position relative is for the overlay */
+  position: relative;
+}
+
+/* clean margins - remove the margin on the last card */
+.card:last-child {
+  margin-bottom: 0;
+}
+
+.card a {
+  cursor: pointer;
+}
+
+.card .text-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(200, 100, 100, 0.6);
+
+  transition: opacity 300ms ease;
+
+  opacity: 0;
+}
+
+.card:hover .text-wrapper {
+  opacity: 1;
+}
+
+.card p {
+  color: #fff;
+  font-size: 1.75rem;
+  line-height: 1.1;
+
+  padding: 0 2rem 1rem;
+  width: 100%;
+}
+
+.button {
+  background-color: var(--highlight-color);
+  border-radius: 2px;
+  color: #fff;
+  display: inline-block;
+  font-family: "Fira Sans", sans-serif;
+  font-size: 14px;
+  padding: 8px 15px;
+  margin-top: 2rem;
+  text-align: center;
+  text-transform: uppercase;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* this makes it so the user can select the text, which keeps the cursor from turning into a text selection cursor */
+  user-select: none;
+}
+
+.button:hover {
+  background-color: var(--highlight-color-dark);
+  box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.3);
+  text-decoration: none;
+}
+
+.button:active,
+.button:focus {
+  background-color: var(--highlight-color-light);
+  /* using box shadow this way will create a border without upsetting the layout by changing the dimensions of the button like border would do */
+  box-shadow: 0 0 0 2px var(--highlight-color-dark) inset;
+  color: #fff;
+}
+
+.full-width {
+  position: relative;
+  width: 100vw;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
+
+.hero {
+  order: -1;
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.hero .text-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(100, 0, 0, 0.2);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  padding: 0 2rem;
+}
+
+.hero h1 {
+  margin: 0;
+  color: #fff;
+  text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.6);
+}
+
+.hero p {
+  font-family: "Fira Sans", sans-serif;
+  color: #fff;
+  font-size: 1.8rem;
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.6);
+}
+
+/**** main nav styling ****/
+/* menu-icon set-up */
+.menu-icon {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background-color: var(--highlight-color-dark);
+  stroke: #fff;
+  border-radius: 50%;
+  padding: 1.5rem;
+  width: 80px;
+  height: 80px;
+}
+
+.menu-icon line {
+  stroke-width: 3px;
+  stroke-linecap: round;
+  transform-origin: center;
+  transition: transform 300ms ease;
+}
+
+.menu-icon line:first-child {
+  transform: translateY(16%);
+}
+
+.menu-icon line:last-child {
+  transform: translateY(-16%);
+}
+
+.close line:first-child {
+  transform: rotate(135deg);
+}
+
+.close line:last-child {
+  transform: rotate(-135deg);
+}
+
+nav {
+  /* I limited the width of the nav so it didn't get too wide on large screens */
+  max-width: 60rem;
+  margin: 0 auto;
+}
+
+nav ul {
+  display: flex;
+  justify-content: space-between;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul a {
+  display: block;
+  padding: 1.5rem;
+  font-size: 1.5rem;
+}
+
+/* add padding to a, not li, so that the click space will be larger, <a> needs to be display: block or inline-block so that it can have top and bottom margin and padding. */
+nav li a {
+  flex: 1 1 0;
+  display: block;
+  text-decoration: none;
+  /* margin will keep the underlines from merging together if spacing is tight */
+  margin: 0 0.5rem;
+  /* the padding determines how far the border is below the content*/
+  padding: 1rem 2rem;
+}
+
+/* override the default a:hover which adds an underline*/
+nav li a:hover {
+  text-decoration: none;
+}
+
+/* override default a:active and a:focus... */
+nav li a:active,
+nav li a:focus {
+  background-color: transparent;
+  color: var(--main-color);
+  outline: 1px solid var(--main-color);
+}
+
+/* create a block shaped like an underline - height: 3px (or so) and width 120%. The width of ::after is the width of the text, so if you want the underline wider than the text, you need to size it by a percentage and use margin to center it 
+
+the a[href] applies this to only <a> with href attributes -- so dead links will not have this animation */
+nav li a[href]::after {
+  content: "";
+  display: block;
+  background-color: var(--main-color);
+  width: 140%;
+  margin-left: -20%;
+  margin-top: 0.5rem;
+  height: 3px;
+  /* hide the underline by scaling it to 0 on the x axis */
+  transform: scaleX(0);
+  /* the default transform-origin is center, which would draw the outline left and right from the center out. This causes the outline to be drawn from left to right */
+  transform-origin: right;
+  transition: transform 300ms linear;
+}
+
+nav li a[href]:hover::after {
+  transform: scaleX(1);
+  /* without this, the line would reverse direction. This makes it appear to slide off in the same direction */
+  transform-origin: left;
+}
+
+/* card breakpoint to switch to 2 x 2 grid 
+   aside font size increased */
+@media (min-width: 500px) {
+  .cards {
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    margin-top: 8rem;
+  }
+
+  .card {
+    flex: 1 1 40%;
+  }
+
+  .card:nth-child(odd) {
+    margin-right: 1rem;
+  }
+
+  .card:nth-child(3) {
+    margin-bottom: 0;
+  }
+
+  aside {
+    font-size: 2rem;
+    margin: 8rem 0 10rem;
+  }
+}
+
+/* panel breakpoint to switch to row and 40/40 flex-basis */
+@media (min-width: 600px) {
+  .panel {
+    flex-direction: row;
+  }
+
+  .panel h2 {
+    margin-top: 0;
+  }
+
+  .panel img.crop {
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .panel .text-wrapper {
+    flex: 1 1 40%;
+  }
+
+  .panel .image-wrapper {
+    flex: 1 1 40%;
+  }
+
+  .panel .left {
+    order: -1;
+    margin-right: 2rem;
+  }
+}
+
+/* panel breakpoint to switch to 60/30 flex basis
+   cards breakpoint to switch to full row 
+   */
+@media (min-width: 900px) {
+  .panel .text-wrapper {
+    flex: 1 1 60%;
+  }
+
+  .panel .image-wrapper {
+    flex: 1 1 30%;
+  }
+
+  .cards {
+    flex-wrap: nowrap;
+    /* limiting the width on super wide screens */
+    max-width: 100rem;
+    align-self: center;
+  }
+
+  .card {
+    margin-bottom: 0;
+  }
+
+  .card:nth-child(2) {
+    margin-right: 1rem;
+  }
+}
